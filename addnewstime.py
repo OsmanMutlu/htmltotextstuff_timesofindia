@@ -22,7 +22,7 @@ with codecs.open(hfilename, "rb", "utf-8") as g:
 
 doc = lxml.html.document_fromstring(html_file)
 title = doc.xpath("//h1[@class='heading1']/text()")
-time = doc.xpath("//span[@class='time_cptn']/text()")
+time = doc.xpath("string(//span[@class='time_cptn'])")
 
 if not title:
     title = doc.xpath("//title/text()")
@@ -36,7 +36,10 @@ if not title:
     title = soup.find("title")
 """
 if title and time:
-    title = re.sub(r"\n|\r", r"", str(title))
+    title = re.sub(r"\n|\r", r"", str(title[0]))
+    time = re.sub(r"\n|\r", r"", str(time))
+    time = re.sub(r"\n|\r", r"", str(time))
+    time = re.sub(r"\n|\r", r"", str(time))
     time = re.sub(r"\n|\r", r"", str(time))
     if not any(fuzz.ratio(title,line)>70 for line in lines):
         lines.insert(0,time)

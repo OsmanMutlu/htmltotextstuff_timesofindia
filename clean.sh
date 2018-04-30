@@ -18,4 +18,5 @@ do
   echo "Finished $file"
  fi
 done
+ls | grep -v "https__timesofindia" | grep "https" | sed -E "s/\d+\s*http/http/g" > ../newstext/redirected.txt
 exit 0
