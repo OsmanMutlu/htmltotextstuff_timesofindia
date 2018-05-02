@@ -10,7 +10,10 @@ text_path = re.sub(r"(.*\/)[^\/]*$", r"\g<1>", filename)
 
 #These are the starting lines of the comment section
 stoplist = ["RELATED", "From around the web", "More from The Times of India", "Recommended By Colombia",
-            "more from times of india Cities","You might also", "You might also like", "more from times of india", "All Comments ()+^ Back to Top"]
+            "more from times of india Cities","You might also", "You might also like", "more from times of india",
+            "All Comments ()+^ Back to Top","more from times of india News","more from times of india TV",
+            "more from times of india Sports","more from times of india Entertainment","more from times of india Life & Style",
+            "more from times of india Business"]
 
 try:
     with codecs.open(filename, "r", "utf-8") as f:
