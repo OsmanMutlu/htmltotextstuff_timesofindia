@@ -19,8 +19,7 @@ try:
     with codecs.open(filename, "r", "utf-8") as f:
         lines = f.readlines()
 except (IOError,FileNotFoundError):
-    print("FILE IS EMPTY : " + filename)
-    sys.exit(1)
+    sys.exit()
 
 for i in range(0,len(lines)):
     firstline = lines[i]

@@ -13,9 +13,9 @@ do
   python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/gettext.py $file
   python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/deletesamesubstr.py ../newstext/$tmp
   python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/deletecertainstr.py ../newstext/$tmp
+  python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/deletecertainstr2.py ../newstext/$tmp
   python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/addnewstime.py ../newstext/$tmp
   python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/addnewslink.py ../newstext/$tmp
-  python3 /home/osman/Dropbox/work/htmltotextstuff_timesofindia/deletecertainstr2.py ../newstext/$tmp
   echo "Finished $file"
  fi
 done

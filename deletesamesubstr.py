@@ -13,7 +13,7 @@ try:
         lines = f.readlines()
 except (IOError,FileNotFoundError):
     print("FILE IS EMPTY!!! : " + filename)
-    sys.exit(1)
+    sys.exit()
 
 #This is specific to timesofindia data that comes from justext
 

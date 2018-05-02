@@ -1,13 +1,21 @@
 import sys
 import codecs
 import re
+import shutil
 
 filename = sys.argv[1]
+
+#This is the folder containing texts
+text_path = re.sub(r"(.*\/)[^\/]*$", r"\g<1>", filename)
+
 #These are the starting lines of the comment section
 stoplist = ["FOLLOW US","FOLLOW PHOTOS","FOLLOW LIFE & STYLE"]
 
-with codecs.open(filename, "r", "utf-8") as f:
-    lines = f.readlines()
+try:
+    with codecs.open(filename, "r", "utf-8") as f:
+        lines = f.readlines()
+except (IOError,FileNotFoundError):
+    sys.exit()
 
 n = 0
 while n < len(lines)-1:
@@ -21,8 +29,12 @@ while n < len(lines)-1:
         continue
     n = n + 1
 
-if not lines:
-    print("FILE IS EMPTY!!! : " + filename)
+if not lines or all(len(line)==0 for line in lines):
+    ofilename = re.sub(r".*\/([^\/]*)$", r"\g<1>", filename)
+    print("FILE IS EMPTY!!! : " + ofilename)
+    with open(text_path + "empty_files","a") as g:
+        g.write(ofilename + "\n")
+    shutil.move(filename, text_path + "empties/" + ofilename)
 
 with codecs.open(filename, "w", "utf-8") as f:
     for line in lines:
