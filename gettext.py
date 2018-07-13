@@ -6,7 +6,7 @@ import os
 filename=sys.argv[1]
 
 #This is the folder containing text files
-text_path = "../newstext/"
+text_path = "../random_newstext/"
 
 file = open(filename, "r")
 html = file.read()

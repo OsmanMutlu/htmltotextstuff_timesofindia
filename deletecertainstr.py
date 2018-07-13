@@ -15,6 +15,8 @@ stoplist = ["RELATED", "From around the web", "More from The Times of India", "R
             "more from times of india Sports","more from times of india Entertainment","more from times of india Life & Style",
             "more from times of india Business"]
 
+stoplist2 = ["FOLLOW US","FOLLOW PHOTOS","FOLLOW LIFE & STYLE"]
+
 try:
     with codecs.open(filename, "r", "utf-8") as f:
         lines = f.readlines()
@@ -29,6 +31,18 @@ for i in range(0,len(lines)):
         for j in range(i, len(lines)):
             del lines[i]
         break
+
+n = 0
+while n < len(lines)-1:
+    if not lines[n]:
+        n = n + 1
+        continue
+    line = lines[n]
+    line = re.sub(r"\n|\r", r"", line)
+    if any(line == word for word in stoplist2):
+        del lines[n]
+        continue
+    n = n + 1
 
 if not lines or all(len(line)==0 for line in lines):
     ofilename = re.sub(r".*\/([^\/]*)$", r"\g<1>", filename)

@@ -38,9 +38,6 @@ if not title:
 if title and time:
     title = re.sub(r"\n|\r", r"", str(title[0]))
     time = re.sub(r"\n|\r", r"", str(time))
-    time = re.sub(r"\n|\r", r"", str(time))
-    time = re.sub(r"\n|\r", r"", str(time))
-    time = re.sub(r"\n|\r", r"", str(time))
     if not any(fuzz.ratio(title,line)>70 for line in lines):
         lines.insert(0,time)
         lines.insert(0,title)
