@@ -2,22 +2,39 @@ import justext
 import re
 import sys
 import os
+from glob import glob
+import codecs
+#import pandas as pd
+#from dask import dataframe as dd
+#from dask.multiprocessing import get
+import multiprocessing
 
-filename=sys.argv[1]
+text_path = sys.argv[1]
 
-#This is the folder containing text files
-text_path = "../random_newstext/"
+files = glob("http*")
 
-file = open(filename, "r")
-html = file.read()
-file.close()
+#all_df = pd.DataFrame(files, columns=["filename"])
 
-ofilename = re.sub(r"\.cms$", r".txt", filename)
-ofile = open(text_path + ofilename, "a")
+#all_df["asd"] = ""
 
-paragraphs = justext.justext(html,justext.get_stoplist("English"))
-for paragraph in paragraphs:
-  if not paragraph.is_boilerplate:
-    ofile.write(paragraph.text + "\n")
+def clean(filename):
 
-ofile.close()
+    with open(filename, "rb") as g:
+        html = g.read()
+
+    ofilename = re.sub(r"\.cms$", r".txt", filename)
+
+    paragraphs = justext.justext(html,justext.get_stoplist("English"))
+
+    with codecs.open(text_path + ofilename, "w", "utf-8") as f:
+        for paragraph in paragraphs:
+            if not paragraph.is_boilerplate:
+                f.write(paragraph.text + "\n")
+
+    return filename
+
+#all_df = dd.from_pandas(all_df,npartitions=12).map_partitions(lambda df : df.apply(clean, axis=1),meta=all_df).compute(get=get)
+
+p = multiprocessing.Pool(12)
+asd = p.map(func=clean,iterable=files)
+p.close()
