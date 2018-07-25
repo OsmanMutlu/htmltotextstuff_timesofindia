@@ -2,6 +2,7 @@ import justext
 import re
 import sys
 import os
+<<<<<<< HEAD
 import multiprocessing
 from glob import glob
 import codecs
@@ -19,6 +20,24 @@ stoplist = justext.get_stoplist("English")
 
 def asd(filename):
 
+=======
+from glob import glob
+import codecs
+#import pandas as pd
+#from dask import dataframe as dd
+#from dask.multiprocessing import get
+import multiprocessing
+
+text_path = sys.argv[1]
+
+files = glob("http*")
+
+#all_df = pd.DataFrame(files, columns=["filename"])
+
+#all_df["asd"] = ""
+
+def clean(filename):
+
     with open(filename, "rb") as g:
         html = g.read()
 
@@ -34,4 +53,5 @@ def asd(filename):
 
 p = multiprocessing.Pool(10)
 values = p.map(func=asd,iterable=files)
+
 p.close()

@@ -19,5 +19,4 @@ python3 /ai/work/emw/htmltotextstuff_timesofindia/all_in_one.py $HTML_DIR/
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewstime.py $HTML_DIR/
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewslink.py
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py
-#ls | grep -v "https__timesofindia" | grep "https" | sed -E "s/\d+\s*http/http/g" > ../random_newstext/redirected.txt
 exit 0
