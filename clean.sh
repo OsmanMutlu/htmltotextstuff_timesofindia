@@ -1,24 +1,23 @@
 #!/bin/sh
-#Takes a full path of the html_dir without slash / charachter at the end
+#Takes a full path of the html_dir without slash / charachter at the end. text_dir needs to be in the same folder as html_dir and given with no path
 HTML_DIR=$1
-cd $HTML_DIR
-if [ ! -d ../random_newstext ]; then
- mkdir ../random_newstext
- mkdir ../random_newstext/empties
-fi
-for file in http*
-do
- if [ ! -f ../random_newstext/$file ]; then
-  tmp=$(echo "${file%.cms}.txt")
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/gettext.py $file
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py ../random_newstext/$tmp
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr.py ../random_newstext/$tmp
-#  python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr2.py ../random_newstext/$tmp
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewstime.py ../random_newstext/$tmp
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewslink.py ../random_newstext/$tmp
-  python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py ../random_newstext/$tmp
-  echo "Finished $file"
- fi
-done
-ls | grep -v "https__timesofindia" | grep "https" | sed -E "s/\d+\s*http/http/g" > ../random_newstext/redirected.txt
+TEXT_DIR=$2
+#cd $HTML_DIR
+#if [ ! -d ../$TEXT_DIR ]; then
+# mkdir ../$TEXT_DIR
+#fi
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/gettext.py ../$TEXT_DIR/
+#echo "Finished justext"
+#cd ..
+#cp -r $TEXT_DIR backup_$TEXT_DIR
+#echo "Got backup"
+cd $TEXT_DIR
+python3 /ai/work/emw/htmltotextstuff_timesofindia/all_in_one.py $HTML_DIR/
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr.py
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr2.py
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewstime.py $HTML_DIR/
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/addnewslink.py
+#python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py
+#ls | grep -v "https__timesofindia" | grep "https" | sed -E "s/\d+\s*http/http/g" > ../random_newstext/redirected.txt
 exit 0
