@@ -28,6 +28,8 @@ stoplist2 = ["FOLLOW US","FOLLOW PHOTOS","FOLLOW LIFE & STYLE"]
 
 def clean(row):
 
+    print(row.filename)
+
     try:
         with codecs.open(row.filename, "r", "utf-8") as f:
             lines = f.readlines()
@@ -56,13 +58,12 @@ def clean(row):
             i = i + 1
 
     if not lines or all(len(line)==0 for line in lines):
-        print("FILE IS EMPTY!!! : " + row.filename)
         with codecs.open("empty_files","a","utf-8") as g:
             g.write(row.filename + "\n")
         return row
 
     j = 0
-    while j < len(lines)-1:
+    while j <= len(lines)-1:
         if lines[j]:
             lines[j] = re.sub(r"<[^>]*>", r"", lines[j])
             lines[j] = re.sub(r"\n|\r", r"", lines[j])
@@ -81,7 +82,6 @@ def clean(row):
             break
 
     if not lines or all(len(line)==0 for line in lines):
-        print("FILE IS EMPTY!!! : " + row.filename)
         with codecs.open("empty_files","a","utf-8") as g:
             g.write(row.filename + "\n")
         return row
@@ -99,11 +99,10 @@ def clean(row):
             continue
         n = n + 1
 
-        if not lines or all(len(line)==0 for line in lines):
-            print("FILE IS EMPTY!!! : " + row.filename)
-            with codecs.open("empty_files","a","utf-8") as g:
-                g.write(row.filename + "\n")
-            return row
+    if not lines or all(len(line)==0 for line in lines):
+        with codecs.open("empty_files","a","utf-8") as g:
+            g.write(row.filename + "\n")
+        return row
 
 #Addnewstime
     hfilename = re.sub(r"\.txt$", r".cms", row.filename)
@@ -148,7 +147,6 @@ def clean(row):
             i = i + 1
 
     if not lines or all(len(line)==0 for line in lines):
-        print("FILE IS EMPTY!!! : " + row.filename)
         with codecs.open("empty_files","a","utf-8") as g:
             g.write(row.filename + "\n")
         return row
@@ -160,7 +158,6 @@ def clean(row):
     link = re.sub(r"\.txt$", r".cms", link)
     lines.append("url : " + link)
 
-
     with codecs.open(row.filename, "w", "utf-8") as f:
         for line in lines:
             if line:
@@ -169,4 +166,4 @@ def clean(row):
 
     return row
 
-all_df = dd.from_pandas(all_df,npartitions=10).map_partitions(lambda df : df.apply(clean, axis=1),meta=all_df).compute(get=get)
+all_df = dd.from_pandas(all_df,npartitions=3).map_partitions(lambda df : df.apply(clean, axis=1),meta=all_df).compute(get=get)

@@ -12,7 +12,7 @@ TEXT_DIR=$2
 #cp -r $TEXT_DIR backup_$TEXT_DIR
 #echo "Got backup"
 cd $TEXT_DIR
-python3 /ai/work/emw/htmltotextstuff_timesofindia/all_in_one.py $HTML_DIR/
+python3 /scratch/users/omutlu/htmltotextstuff_timesofindia/all_in_one.py $HTML_DIR/
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/deletesamesubstr.py
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr.py
 #python3 /ai/work/emw/htmltotextstuff_timesofindia/deletecertainstr2.py
